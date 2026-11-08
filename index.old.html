@@ -1,0 +1,524 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Fadhil Raihan Akbar | Portfolio</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="Portfolio of Fadhil Raihan Akbar - AI Engineer, Data Scientist, ML Engineer, and Data Analyst." />
+    
+    <!-- Favicon & Web Manifest Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --border: #334155;
+            --radius: 12px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Header */
+        #header {
+            width: 320px;
+            background: #090d16;
+            border-right: 1px solid var(--border);
+            padding: 3rem 2rem;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #header .profile {
+            text-align: center;
+        }
+
+        #header .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        #header .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        #header h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        #header .subtitle {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        #header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Content Container */
+        #main {
+            margin-left: 320px;
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* More Projects Section Layout */
+        .more-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .more-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .more-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .more-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .more-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            flex-grow: 1;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            background: var(--bg-card);
+            border-left: 3px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .experience-item h3 {
+            font-size: 1.1rem;
+        }
+
+        .experience-item .meta {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* General Links & Social Icons */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-hover);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+        }
+
+        .social-links a {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            #header {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 2rem;
+            }
+            #main {
+                margin-left: 0;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation / Profile Header -->
+    <header id="header">
+        <div class="profile">
+            <img src="images/avatar.jpeg" alt="Fadhil Raihan Akbar" class="avatar" />
+            <h1>Fadhil Raihan Akbar</h1>
+            <div class="subtitle">Data & AI Professional</div>
+            <p>Information Systems graduate passionate about Machine Learning, Data Analytics, and Perception Datasets.</p>
+        </div>
+        <div class="social-links">
+            <a href="mailto:fadhil.ra101@gmail.com" aria-label="Email" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/fadhil-raihan-akbar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="main">
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I graduated in Information Systems from Universitas Islam Negeri Jakarta. I specialize in processing complex datasets, building predictive models, and performing high-precision data annotation for machine learning workflows. Certified C1 Advanced English proficiency (EF SET).</p>
+        </section>
+
+        <!-- Featured Projects -->
+        <section id="portfolio">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                
+                <div class="card">
+                    <img src="images/fulls/project1.png" alt="Expected Goals Model" />
+                    <h3>Expected Goals (xG) Predictive Model</h3>
+                    <p>Engineered a machine learning model utilizing LightGBM to predict Expected Goals based on match event data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/xg-interface" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://xg-interface.streamlit.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Python</span>
+                        <span class="tag">LightGBM</span>
+                        <span class="tag">Machine Learning</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/fulls/project2.png" alt="Premier League Analysis" />
+                    <h3>Premier League Counter-Attack Analysis</h3>
+                    <p>Quantitative sports analytics calculating Vertical Transition Velocity using StatsBomb event data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/vertical-transition-velocity" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Python</span>
+                        <span class="tag">Pandas</span>
+                        <span class="tag">Sports Analytics</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- More Projects Section -->
+        <section id="more-projects">
+            <h2>More Projects</h2>
+            <div class="more-projects-grid">
+                
+                <div class="more-card">
+                    <h3>Football Analytics Dashboard</h3>
+                    <p>Interactive Streamlit dashboard for exploring football analytics and performance data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/streamlit-dashboard-web-app-football-analytics" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Python</span>
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">Football Analytics</span>
+                    </div>
+                </div>
+
+                <div class="more-card">
+                    <h3>Role-Based Access Control Dashboard</h3>
+                    <p>PHP Laravel dashboard implementing role-based access control for managing users and permissions.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/role-based-access-control-dashboard" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">PHP</span>
+                        <span class="tag">Laravel</span>
+                    </div>
+                </div>
+
+                <div class="more-card">
+                    <h3>Attendance Management System</h3>
+                    <p>Attendance management system built with Blade templates and SQL data storage.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/attendance-management-system" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Blade</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="more-card">
+                    <h3>Go Seat Booking API</h3>
+                    <p>HTTP API for listing and booking seats with PostgreSQL transactions, row locks, Redis caching, and race-condition load simulation.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/goloazo" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Go</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Redis</span>
+                    </div>
+                </div>
+
+                <div class="more-card">
+                    <h3>Football Moneyball</h3>
+                    <p>Football data pipeline using soccerdata and FBRef data, pandas and NumPy processing, and scikit-learn KNN player similarity matching.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101/football-moneyball" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Python</span>
+                        <span class="tag">Pandas</span>
+                        <span class="tag">Scikit-Learn</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <h2>Experience</h2>
+            
+            <div class="experience-item">
+                <h3>Data Annotator — XDOF AI</h3>
+                <div class="meta">Sep 2026 – Present</div>
+                <p>Annotating robotic AI video datasets in English, applying precise standards to support vision model evaluation and training.</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Data Annotator — KUPU ID (Sinarmas Group)</h3>
+                <div class="meta">Feb 2026 – Sep 2026</div>
+                <p>High-precision annotation for autonomous driving perception (TSR, TFL, LIDAR segmentation, and Occupancy networks).</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Co-Founder & Operations — Digital Media 422</h3>
+                <div class="meta">Jan 2025 – Present</div>
+                <p>Managing end-to-end procurement, diagnostics, and operations for pre-owned technology hardware resale.</p>
+            </div>
+
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Technical Tools</h3>
+                    <ul class="skill-list">
+                        <li>Python & Pandas</li>
+                        <li>SQL</li>
+                        <li>LightGBM</li>
+                        <li>Google Colab</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Domain Knowledge</h3>
+                    <ul class="skill-list">
+                        <li>Machine Learning</li>
+                        <li>Data Annotation (2D/4D)</li>
+                        <li>Autonomous Driving Datasets</li>
+                        <li>Sports Analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
