@@ -5,11 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="Portfolio of Fadhil Raihan Akbar - AI Engineer, Data Scientist, ML Engineer, and Data Analyst." />
-		
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Favicon & Web Manifest Links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +48,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Navigation / Profile Header */
+        /* Sidebar Header */
         #header {
             width: 320px;
             background: #090d16;
@@ -97,7 +99,7 @@
             color: var(--text-muted);
         }
 
-        /* Main Content Area */
+        /* Main Content Container */
         #main {
             margin-left: 320px;
             flex: 1;
@@ -128,7 +130,7 @@
             border-radius: 2px;
         }
 
-        /* Primary Featured Project Grid */
+        /* Project Cards */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -170,12 +172,25 @@
             flex-grow: 1;
         }
 
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
         /* More Projects Section Layout */
         .more-projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.25rem;
-            margin-top: 1rem;
         }
 
         .more-card {
@@ -184,6 +199,8 @@
             border-radius: var(--radius);
             padding: 1.25rem;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
         }
 
         .more-card:hover {
@@ -200,6 +217,7 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 0.75rem;
+            flex-grow: 1;
         }
 
         .tag-container {
@@ -274,7 +292,7 @@
             font-weight: bold;
         }
 
-        /* Social Icons & Links */
+        /* General Links & Social Icons */
         a {
             color: var(--primary);
             text-decoration: none;
@@ -320,7 +338,7 @@
 </head>
 <body>
 
-    <!-- Header / Sidebar -->
+    <!-- Sidebar Navigation / Profile Header -->
     <header id="header">
         <div class="profile">
             <img src="images/avatar.jpeg" alt="Fadhil Raihan Akbar" class="avatar" />
@@ -329,7 +347,7 @@
             <p>Information Systems graduate passionate about Machine Learning, Data Analytics, and Perception Datasets.</p>
         </div>
         <div class="social-links">
-            <a href="mailto:fadhil.ra101@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="mailto:fadhil.ra101@gmail.com" aria-label="Email" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
             <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/fadhil-raihan-akbar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
@@ -343,6 +361,7 @@
             <p>I graduated in Information Systems from Universitas Islam Negeri Jakarta. I specialize in processing complex datasets, building predictive models, and performing high-precision data annotation for machine learning workflows. Certified C1 Advanced English proficiency (EF SET).</p>
         </section>
 
+        <!-- Featured Projects -->
         <section id="portfolio">
             <h2>Featured Projects</h2>
             <div class="project-grid">
@@ -351,6 +370,10 @@
                     <img src="images/fulls/project1.png" alt="Expected Goals Model" />
                     <h3>Expected Goals (xG) Predictive Model</h3>
                     <p>Engineered a machine learning model utilizing LightGBM to predict Expected Goals based on match event data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://streamlit.io" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
                     <div class="tag-container">
                         <span class="tag">Python</span>
                         <span class="tag">LightGBM</span>
@@ -362,6 +385,10 @@
                     <img src="images/fulls/project2.png" alt="Premier League Analysis" />
                     <h3>Premier League Counter-Attack Analysis</h3>
                     <p>Quantitative sports analytics calculating Vertical Transition Velocity using StatsBomb event data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://streamlit.io" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
                     <div class="tag-container">
                         <span class="tag">Python</span>
                         <span class="tag">Pandas</span>
@@ -380,6 +407,9 @@
                 <div class="more-card">
                     <h3>Data Analytics Pipelines</h3>
                     <p>Exploratory data analysis and automated data cleaning scripts using Python and SQL.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
                     <div class="tag-container">
                         <span class="tag">Python</span>
                         <span class="tag">SQL</span>
@@ -387,17 +417,46 @@
                 </div>
 
                 <div class="more-card">
-                    <h3>Interactive Web Apps</h3>
-                    <p>Building interactive data dashboards and analytics applications deployed using Streamlit.</p>
+                    <h3>Interactive Analytics Dashboards</h3>
+                    <p>Building interactive data dashboards and analytical tools deployed using Streamlit.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                        <a href="https://streamlit.io" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> App</a>
+                    </div>
                     <div class="tag-container">
                         <span class="tag">Streamlit</span>
                         <span class="tag">Data Viz</span>
                     </div>
                 </div>
 
+                <div class="more-card">
+                    <h3>Machine Learning Model Benchmarking</h3>
+                    <p>Comparative performance analysis across classification models and evaluation metrics.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Scikit-Learn</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+
+                <div class="more-card">
+                    <h3>Spatial & Event Data Parsing</h3>
+                    <p>Processing spatial-temporal tracking and event datasets for complex analytics workflows.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/fadhilra101" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag">Pandas</span>
+                        <span class="tag">ETL</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
+        <!-- Experience Section -->
         <section id="experience">
             <h2>Experience</h2>
             
@@ -421,6 +480,7 @@
 
         </section>
 
+        <!-- Skills Section -->
         <section id="skills">
             <h2>Skills & Expertise</h2>
             <div class="skills-grid">
