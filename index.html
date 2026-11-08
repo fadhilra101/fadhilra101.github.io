@@ -35,13 +35,19 @@
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 8px;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            /* Ultra-smooth custom easing for minimalist interactions */
+            --transition-smooth: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        ::selection {
+            background: rgba(139, 92, 246, 0.3);
+            color: #ffffff;
         }
 
         body {
@@ -102,14 +108,43 @@
             justify-content: center;
             z-index: 10;
             box-shadow: 20px 0 40px rgba(0,0,0,0.2);
+            transform-style: preserve-3d;
+            perspective: 1500px;
+            transform-origin: left center;
+            opacity: 0;
+            transform: translateX(-100%) rotateY(25deg);
+            animation: swingInLeft 1s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+
+        @keyframes swingInLeft {
+            to { opacity: 1; transform: translateX(0) rotateY(0deg); }
+        }
+
+        /* Staggered Profile Elements Animation */
+        #header .profile > *, .social-links a {
+            opacity: 0;
+            transform: translateY(30px) translateZ(-20px);
+            animation: fadeUpPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+        
+        #header .avatar { animation-delay: 0.3s; }
+        #header h1 { animation-delay: 0.45s; }
+        #header .subtitle { animation-delay: 0.6s; }
+        #header p { animation-delay: 0.75s; }
+        .social-links a:nth-child(1) { animation-delay: 0.9s; }
+        .social-links a:nth-child(2) { animation-delay: 1.0s; }
+        .social-links a:nth-child(3) { animation-delay: 1.1s; }
+
+        @keyframes fadeUpPop {
+            to { opacity: 1; transform: translateY(0) translateZ(0); }
         }
 
         #header .profile {
             text-align: center;
             transform-style: preserve-3d;
-            perspective: 1000px;
         }
 
+        /* Avatar Hover Details */
         #header .avatar {
             width: 140px;
             height: 140px;
@@ -119,23 +154,34 @@
             background: linear-gradient(var(--bg-base), var(--bg-base)) padding-box,
                         linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
             margin-bottom: 2rem;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px var(--primary-glow);
         }
 
         #header .avatar:hover {
-            transform: scale(1.05) translateZ(20px);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.5), 0 0 30px var(--primary-glow);
+            transform: scale(1.08) translateZ(30px) rotate(-5deg);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5), 0 0 40px var(--primary-glow);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
+        /* Modern Gradient Sweep Hover for Name (Replaces letter-spacing) */
         #header h1 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            /* Extra width for the gradient to allow it to sweep */
+            background-image: linear-gradient(to right, #ffffff 0%, #a5b4fc 25%, #ffffff 50%, #ffffff 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
+            transition: background-position 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            background-position: left center;
+        }
+
+        #header h1:hover {
+            background-position: right center; /* Creates a smooth passing light effect */
         }
 
         #header .subtitle {
@@ -145,14 +191,26 @@
             text-transform: uppercase;
             letter-spacing: 0.15em;
             margin-bottom: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        #header .subtitle:hover {
+            color: var(--secondary);
+            letter-spacing: 0.2em;
         }
 
         #header p {
             font-size: 0.95rem;
             color: var(--text-muted);
             margin-bottom: 2.5rem;
+            transition: color 0.4s ease;
+        }
+        
+        #header p:hover {
+            color: #ffffff;
         }
 
+        /* Social Icons Interactive Hover */
         .social-links {
             display: flex;
             justify-content: center;
@@ -170,15 +228,23 @@
             border-radius: 50%;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            transition: var(--transition);
+            transition: var(--transition-smooth);
+        }
+
+        .social-links a i {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .social-links a:hover {
             color: #fff;
             border-color: var(--primary);
             background: var(--primary-glow);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+            transform: translateY(-8px) translateZ(10px);
+            box-shadow: 0 15px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        .social-links a:hover i {
+            transform: scale(1.2) rotate(5deg);
         }
 
         /* Main Content Layout */
@@ -187,13 +253,31 @@
             flex: 1;
             padding: 5rem 6rem;
             max-width: 1200px;
+            perspective: 1500px;
         }
 
+        /* Main Sections 3D Entry Animation */
         section {
             margin-bottom: 6rem;
             position: relative;
+            transform-style: preserve-3d;
+            
+            opacity: 0;
+            transform: translateY(50px) translateZ(-60px) rotateX(-8deg);
+            animation: reveal3D 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
 
+        section:nth-of-type(1) { animation-delay: 0.10s; }
+        section:nth-of-type(2) { animation-delay: 0.25s; }
+        section:nth-of-type(3) { animation-delay: 0.40s; }
+        section:nth-of-type(4) { animation-delay: 0.55s; }
+        section:nth-of-type(5) { animation-delay: 0.70s; }
+
+        @keyframes reveal3D {
+            100% { opacity: 1; transform: translateY(0) translateZ(0) rotateX(0deg); }
+        }
+
+        /* Sleek Modern Translation Hover for Section Titles */
         h2 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2.2rem;
@@ -202,24 +286,55 @@
             position: relative;
             display: inline-block;
             letter-spacing: -0.02em;
+            /* Using hardware accelerated transform instead of letter-spacing */
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2), text-shadow 0.4s ease;
+            transform-origin: left center;
+            cursor: default;
+        }
+
+        h2:hover {
+            transform: translateX(8px);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
         }
 
         h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 0;
-            width: 60px;
-            height: 4px;
+            width: 0; 
+            height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 4px;
+            box-shadow: 0 0 10px transparent;
+            animation: drawUnderline 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+            /* Smoothly elongates slightly on hover, rather than jumping to 100% */
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+        }
+        
+        h2:hover::after {
+            width: 80px; 
             box-shadow: 0 2px 10px var(--primary-glow);
         }
+        
+        section:nth-of-type(1) h2::after { animation-delay: 0.50s; }
+        section:nth-of-type(2) h2::after { animation-delay: 0.65s; }
+        section:nth-of-type(3) h2::after { animation-delay: 0.80s; }
+        section:nth-of-type(4) h2::after { animation-delay: 0.95s; }
+        section:nth-of-type(5) h2::after { animation-delay: 1.10s; }
 
+        @keyframes drawUnderline { to { width: 60px; } }
+
+        /* Paragraph Hover Focus */
         section p {
             color: var(--text-muted);
             font-size: 1.05rem;
             line-height: 1.8;
+            transition: color 0.4s ease;
+        }
+        
+        section:hover p {
+            color: rgba(255,255,255,0.9);
         }
 
         /* 3D Glassmorphism Cards */
@@ -229,13 +344,8 @@
             perspective: 1000px;
         }
 
-        .project-grid {
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        }
-        
-        .more-projects-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
+        .project-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .more-projects-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
         .tilt-card {
             background: var(--bg-card);
@@ -251,27 +361,28 @@
             flex-direction: column;
             transform-style: preserve-3d;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
+        /* Light Ray Sweep Effect */
         .tilt-card::before {
             content: '';
             position: absolute;
             top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
             transform: skewX(-20deg);
-            transition: 0.5s;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
             pointer-events: none;
+            z-index: 2;
         }
 
-        .tilt-card:hover::before {
-            left: 150%;
-        }
+        .tilt-card:hover::before { left: 150%; }
 
         .tilt-card:hover {
             border-top-color: var(--primary);
+            border-left-color: rgba(255,255,255,0.2);
             box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(59, 130, 246, 0.1);
         }
 
@@ -279,8 +390,14 @@
             border-radius: var(--radius-md);
             overflow: hidden;
             margin-bottom: 1.5rem;
-            transform: translateZ(30px); /* 3D Pop out effect */
+            transform: translateZ(30px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: var(--transition-smooth);
+        }
+        
+        .tilt-card:hover .card-img-wrapper {
+            transform: translateZ(45px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
         }
 
         .tilt-card img {
@@ -288,18 +405,28 @@
             height: 200px;
             object-fit: cover;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.5s ease;
+            filter: brightness(0.85);
         }
 
         .tilt-card:hover img {
-            transform: scale(1.08);
+            transform: scale(1.1);
+            filter: brightness(1.05);
         }
 
+        /* Inner Text Pop on Hover */
         .tilt-card h3 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.3rem;
             margin-bottom: 0.75rem;
-            transform: translateZ(40px); /* 3D Pop */
+            transform: translateZ(40px);
+            transition: var(--transition-smooth);
+        }
+
+        .tilt-card:hover h3 {
+            color: var(--primary);
+            transform: translateZ(55px);
+            letter-spacing: 0.02em;
         }
 
         .tilt-card p {
@@ -307,13 +434,24 @@
             margin-bottom: 1.5rem;
             flex-grow: 1;
             transform: translateZ(20px);
+            transition: var(--transition-smooth);
+        }
+        
+        .tilt-card:hover p {
+            transform: translateZ(35px);
         }
 
+        /* Links Wipe-Fill Hover */
         .project-links {
             display: flex;
             gap: 1.25rem;
             margin-bottom: 1.5rem;
             transform: translateZ(30px);
+            transition: var(--transition-smooth);
+        }
+        
+        .tilt-card:hover .project-links {
+            transform: translateZ(50px);
         }
 
         .project-links a {
@@ -327,21 +465,46 @@
             padding: 0.5rem 1rem;
             border-radius: 30px;
             border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: border-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
+        }
+        
+        /* The wiping background element */
+        .project-links a::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
         .project-links a:hover {
-            background: var(--primary);
-            border-color: var(--primary);
             color: #fff;
-            box-shadow: 0 5px 15px var(--primary-glow);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--primary-glow);
+        }
+        
+        .project-links a:hover::after {
+            width: 100%;
         }
 
+        /* Magnetic Tags */
         .tag-container {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             transform: translateZ(25px);
             margin-top: auto;
+            transition: var(--transition-smooth);
+        }
+        
+        .tilt-card:hover .tag-container {
+            transform: translateZ(40px);
         }
 
         .tag {
@@ -353,6 +516,16 @@
             font-weight: 500;
             border: 1px solid rgba(59, 130, 246, 0.2);
             backdrop-filter: blur(4px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            transform: translateY(-4px) translateZ(15px) scale(1.05);
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 5px 15px var(--primary-glow);
+            border-color: rgba(255,255,255,0.3);
         }
 
         /* Experience Modern Timeline */
@@ -366,11 +539,21 @@
             position: absolute;
             top: 0; left: 0;
             width: 2px;
-            height: 100%;
+            height: 0; 
             background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent);
             border-radius: 2px;
+            animation: drawTimeline 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+            animation-delay: 1s;
+            transition: box-shadow 0.4s ease;
+        }
+        
+        .experience-container:hover::before {
+            box-shadow: 0 0 15px var(--primary-glow);
         }
 
+        @keyframes drawTimeline { to { height: 100%; } }
+
+        /* 3D Staggered Experience Card */
         .experience-item {
             position: relative;
             background: var(--bg-card);
@@ -379,9 +562,22 @@
             padding: 2rem;
             margin-bottom: 1.5rem;
             border-radius: var(--radius-lg);
-            transition: var(--transition);
+            transition: var(--transition-smooth);
+            
+            opacity: 0;
+            transform: translateX(-40px) translateZ(-20px) rotateY(-10deg);
+            animation: slideInExp 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
 
+        .experience-item:nth-child(1) { animation-delay: 1.1s; }
+        .experience-item:nth-child(2) { animation-delay: 1.3s; }
+        .experience-item:nth-child(3) { animation-delay: 1.5s; }
+
+        @keyframes slideInExp {
+            to { opacity: 1; transform: translateX(0) translateZ(0) rotateY(0deg); }
+        }
+
+        /* Timeline Dot Pulse Hover */
         .experience-item::before {
             content: '';
             position: absolute;
@@ -393,24 +589,42 @@
             border: 2px solid var(--primary);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--primary-glow);
-            transition: var(--transition);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            transform: scale(0);
+            animation: popDot 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
+        
+        .experience-item:nth-child(1)::before { animation-delay: 1.4s; }
+        .experience-item:nth-child(2)::before { animation-delay: 1.6s; }
+        .experience-item:nth-child(3)::before { animation-delay: 1.8s; }
+
+        @keyframes popDot { to { transform: scale(1); } }
 
         .experience-item:hover {
-            transform: translateX(10px);
-            border-color: var(--border-highlight);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateX(12px) translateZ(15px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            background: rgba(30, 30, 45, 0.6);
         }
 
+        /* Intense Dot Pulse when hovering the card */
         .experience-item:hover::before {
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
+            transform: scale(1.6);
+            background: var(--secondary);
+            border-color: #ffffff;
+            box-shadow: 0 0 20px var(--secondary), 0 0 40px var(--primary-glow);
         }
 
         .experience-item h3 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.25rem;
             color: #fff;
+            transition: var(--transition-smooth);
+        }
+        
+        .experience-item:hover h3 {
+            color: var(--secondary);
+            letter-spacing: 0.02em;
         }
 
         .experience-item .meta {
@@ -431,13 +645,13 @@
             border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
             padding: 2rem;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
 
         .skill-category:hover {
-            border-color: var(--border-highlight);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.02);
         }
 
         .skill-category h3 {
@@ -445,11 +659,15 @@
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
             color: #fff;
+            transition: var(--transition-smooth);
+        }
+        
+        .skill-category:hover h3 {
+            color: var(--primary);
         }
 
-        .skill-list {
-            list-style: none;
-        }
+        /* Dynamic Skill Arrows */
+        .skill-list { list-style: none; }
 
         .skill-list li {
             font-size: 0.95rem;
@@ -458,12 +676,14 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            transition: transform 0.2s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), color 0.3s ease;
+            cursor: default;
         }
 
         .skill-list li:hover {
-            transform: translateX(5px);
+            transform: translateX(8px);
             color: #fff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.3);
         }
 
         .skill-list li::before {
@@ -472,37 +692,25 @@
             font-weight: 900;
             color: var(--primary);
             font-size: 0.8rem;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5), color 0.3s ease;
+        }
+        
+        .skill-list li:hover::before {
+            transform: translateX(6px) scale(1.2);
+            color: var(--secondary);
+            filter: drop-shadow(0 0 5px var(--secondary));
         }
 
         /* General Links */
-        a {
-            text-decoration: none;
-        }
-
-        /* Scroll Reveal Animation Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        a { text-decoration: none; }
 
         /* Responsive Breakpoints */
         @media (max-width: 1024px) {
-            #main {
-                padding: 4rem 3rem;
-            }
+            #main { padding: 4rem 3rem; }
         }
 
         @media (max-width: 900px) {
-            body {
-                flex-direction: column;
-            }
+            body { flex-direction: column; }
             #header {
                 width: 100%;
                 height: auto;
@@ -511,14 +719,17 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border-light);
                 box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                
+                /* Mobile Entry Animation */
+                transform-origin: top center;
+                transform: translateY(-50px) rotateX(-15deg);
+                animation: dropInTop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
             }
-            #main {
-                margin-left: 0;
-                padding: 3rem 2rem;
-            }
-            .ambient-orb {
-                display: none; /* Hide heavy blurred orbs on mobile for performance */
-            }
+            
+            @keyframes dropInTop { to { opacity: 1; transform: translateY(0) rotateX(0deg); } }
+            
+            #main { margin-left: 0; padding: 3rem 2rem; }
+            .ambient-orb { display: none; }
         }
     </style>
 </head>
@@ -546,17 +757,17 @@
     <!-- Main Content Area -->
     <main id="main">
         
-        <section id="about" class="reveal">
+        <section id="about">
             <h2>About Me</h2>
             <p>I graduated in Information Systems from Universitas Islam Negeri Jakarta. I specialize in processing complex datasets, building predictive models, and performing high-precision data annotation for machine learning workflows. Certified C1 Advanced English proficiency (EF SET).</p>
         </section>
 
         <!-- Featured Projects -->
-        <section id="portfolio" class="reveal">
+        <section id="portfolio">
             <h2>Featured Projects</h2>
             <div class="project-grid">
                 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <div class="card-img-wrapper">
                         <img src="images/fulls/project1.png" alt="Expected Goals Model" />
                     </div>
@@ -573,7 +784,7 @@
                     </div>
                 </div>
 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <div class="card-img-wrapper">
                         <img src="images/fulls/project2.png" alt="Premier League Analysis" />
                     </div>
@@ -593,11 +804,11 @@
         </section>
 
         <!-- More Projects Section -->
-        <section id="more-projects" class="reveal">
+        <section id="more-projects">
             <h2>More Projects</h2>
             <div class="more-projects-grid">
                 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <h3>Football Analytics Dashboard</h3>
                     <p>Interactive Streamlit dashboard for exploring football analytics and performance data.</p>
                     <div class="project-links">
@@ -610,7 +821,7 @@
                     </div>
                 </div>
 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <h3>Role-Based Access Control Dashboard</h3>
                     <p>PHP Laravel dashboard implementing role-based access control for managing users and permissions.</p>
                     <div class="project-links">
@@ -622,7 +833,7 @@
                     </div>
                 </div>
 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <h3>Attendance Management System</h3>
                     <p>Attendance management system built with Blade templates and SQL data storage.</p>
                     <div class="project-links">
@@ -634,7 +845,7 @@
                     </div>
                 </div>
 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <h3>Go Seat Booking API</h3>
                     <p>HTTP API for listing and booking seats with PostgreSQL transactions, row locks, Redis caching, and race-condition load simulation.</p>
                     <div class="project-links">
@@ -647,7 +858,7 @@
                     </div>
                 </div>
 
-                <div class="tilt-card 3d-item">
+                <div class="tilt-card tilt-item">
                     <h3>Football Moneyball</h3>
                     <p>Football data pipeline using soccerdata and FBRef data, pandas and NumPy processing, and scikit-learn KNN player similarity matching.</p>
                     <div class="project-links">
@@ -664,7 +875,7 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="reveal">
+        <section id="experience">
             <h2>Experience</h2>
             
             <div class="experience-container">
@@ -689,21 +900,21 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="reveal">
+        <section id="skills">
             <h2>Skills & Expertise</h2>
             <div class="skills-grid">
                 
-                <div class="skill-category tilt-card 3d-item">
+                <div class="skill-category tilt-card tilt-item">
                     <h3>Technical Tools</h3>
                     <ul class="skill-list" style="transform: translateZ(20px);">
                         <li>Python & Pandas</li>
                         <li>SQL</li>
-                        <li>LightGBM</li>
-                        <li>Google Colab</li>
+                        <li>Scikit-learn</li>
+                        <li>Data Visualization</li>
                     </ul>
                 </div>
                 
-                <div class="skill-category tilt-card 3d-item">
+                <div class="skill-category tilt-card tilt-item">
                     <h3>Domain Knowledge</h3>
                     <ul class="skill-list" style="transform: translateZ(20px);">
                         <li>Machine Learning</li>
@@ -721,7 +932,7 @@
     <!-- Custom Smooth Interaction Scripts -->
     <script>
         // 3D Vanilla Tilt Effect for Cards
-        const tiltCards = document.querySelectorAll('.3d-item');
+        const tiltCards = document.querySelectorAll('.tilt-item');
 
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', e => {
@@ -732,7 +943,6 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // Calculate rotation (max 8 degrees for smooth minimalist feel)
                 const rotateX = ((y - centerY) / centerY) * -8;
                 const rotateY = ((x - centerX) / centerX) * 8;
                 
@@ -742,27 +952,6 @@
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
             });
-        });
-
-        // Scroll Reveal Animation Setup
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Only trigger once
-            });
-        }, revealOptions);
-
-        revealElements.forEach(el => {
-            revealOnScroll.observe(el);
         });
     </script>
 </body>
